@@ -8,6 +8,8 @@ import java.io.File;
 import java.util.List;
 
 public class CandleController {
+	private static int BATCH_SIZE = 10000;
+
 	private final Importable importable;
 	private final Exportable exportable;
 
@@ -23,7 +25,6 @@ public class CandleController {
 	 * @param source csv 파일 경로
 	 * @param sec  각 거래의 기간
 	 */
-	private static int BATCH_SIZE = 10000;
 	public void run(String source, int sec) {
 		validation(source, sec);
 		List<String[]> csv = importable.load(source); //timestamp,price,size
