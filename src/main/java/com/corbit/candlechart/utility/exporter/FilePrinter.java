@@ -21,6 +21,7 @@ public class FilePrinter implements Exportable {
 	public void export(String object) {
 		try {
 			bufferedWriter.write(object);
+			bufferedWriter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -21,7 +21,6 @@ class FindLastEndTimeTest {
 	void find_last_end_plus_1(int period, int start, int last, int expected) {
 		int limitTime = ((last - start) / period + 1) * period + start;
 		assertThat(limitTime).isEqualTo(expected);
-		assertThat(limitTime).isEqualTo(last + period);
 	}
 
 

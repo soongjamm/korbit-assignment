@@ -4,6 +4,7 @@ import com.corbit.candlechart.candle.Candles;
 import com.corbit.candlechart.utility.exporter.Exportable;
 import com.corbit.candlechart.utility.importer.Importable;
 
+import java.io.File;
 import java.util.List;
 
 public class CandleController {
@@ -23,8 +24,18 @@ public class CandleController {
 	 * @param sec  각 거래의 기간
 	 */
 	public void run(String source, int sec) {
+		validation(source, sec);
 		List<String[]> trades = importable.load(source); //timestamp,price,size
 		Candles candles = new Candles(sec, trades);
 		exportable.export(candles.toJson());
+	}
+
+	private void validation(String source, int sec) {
+		if (!new File(source).canRead()) {
+			throw new IllegalArgumentException("cannot read file in source path");
+		}
+		if (sec < 30 || sec > 86400) {
+			throw new IllegalArgumentException("input period is not valid");
+		}
 	}
 }

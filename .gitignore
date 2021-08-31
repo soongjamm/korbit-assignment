@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### .csv
-.korbitKRW_2.csv
+*.csv

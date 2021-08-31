@@ -9,7 +9,8 @@ public class MainApplication {
 	 * 이곳에서 파일 경로를 입력하거나 설정을 변경
 	 */
 	public static void main(String[] args) {
+//		CandleController candleController = new CandleController(new CSVLoader(), new Printer());
 		CandleController candleController = new CandleController(new CSVLoader(), new FilePrinter("candlechart.json"));
-		candleController.run(".korbitKRW_2.csv", 68400);
+		candleController.run(".korbitKRW.csv", 30);
 	}
 }
