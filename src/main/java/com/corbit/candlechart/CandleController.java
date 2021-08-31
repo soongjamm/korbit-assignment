@@ -23,11 +23,25 @@ public class CandleController {
 	 * @param source csv 파일 경로
 	 * @param sec  각 거래의 기간
 	 */
+	private static int BATCH_SIZE = 10000;
 	public void run(String source, int sec) {
 		validation(source, sec);
-		List<String[]> trades = importable.load(source); //timestamp,price,size
-		Candles candles = new Candles(sec, trades);
-		exportable.export(candles.toJson());
+		List<String[]> csv = importable.load(source); //timestamp,price,size
+		batchJson(sec, csv);
+	}
+
+	private void batchJson(int sec, List<String[]> csv) {
+		int idx = 0;
+		while(idx < csv.size()) {
+			List<String[]> trades = null;
+			if (csv.size() < idx + BATCH_SIZE) {
+				trades = csv.subList(idx, csv.size());
+			} else {
+				trades = csv.subList(idx, idx + BATCH_SIZE);
+			}
+			Candles candles = new Candles(sec, trades);
+			exportable.export(candles.toJson());
+		}
 	}
 
 	private void validation(String source, int sec) {
